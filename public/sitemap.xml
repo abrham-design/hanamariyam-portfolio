@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://lawyerhanamariyam.com.et/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://lawyerhanamariyam.com.et/about</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lawyerhanamariyam.com.et/practice-areas</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lawyerhanamariyam.com.et/insights</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://lawyerhanamariyam.com.et/insights/written-contracts-matter</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lawyerhanamariyam.com.et/insights/shareholder-rights-overview</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lawyerhanamariyam.com.et/contact</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://lawyerhanamariyam.com.et/consultation</loc>
+    <priority>0.9</priority>
+  </url>
+</urlset>

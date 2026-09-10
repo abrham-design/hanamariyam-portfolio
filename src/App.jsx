@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, createContext, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import {
   BrowserRouter,
   Routes,
@@ -274,6 +275,7 @@ const translations = {
 --------------------------------------------------------------- */
 
 const ICON_MAP = { Briefcase, ShieldCheck, Gavel, Handshake, Leaf };
+const RESEARCH_URL = "https://etd.aau.edu.et/items/fe9fab10-ebbe-43e7-87cb-e08513067859";
 const ICON_KEYS = Object.keys(ICON_MAP);
 
 const DEFAULT_PRACTICE_AREAS = [
@@ -380,6 +382,7 @@ const AWARDS = [
 
 const HIGHLIGHTS = [
   {
+    link: RESEARCH_URL,
     en: {
       title: "Published Research",
       text: "Authored comprehensive research on minority shareholder protection under the Ethiopian Commercial Code.",
@@ -517,7 +520,7 @@ const WHATSAPP_NUMBER = "251924485788";
 
 // TODO: replace these two placeholder URLs with her real profile links.
 const FACEBOOK_URL = "https://facebook.com/";
-const LINKEDIN_URL = "https://linkedin.com/";
+const LINKEDIN_URL = "https://www.linkedin.com/in/hanamariyam-getnet-b477a6424";
 
 // Cloudinary — free image hosting, no credit card required.
 // Sign up at cloudinary.com, then paste your Cloud Name (dashboard home
@@ -525,6 +528,14 @@ const LINKEDIN_URL = "https://linkedin.com/";
 // presets > Add upload preset > Signing Mode: Unsigned) below.
 const CLOUDINARY_CLOUD_NAME = "ztaqujps";
 const CLOUDINARY_UPLOAD_PRESET = "hanamariyam-portfolio";
+
+// EmailJS — sends the Contact and Consultation forms to her inbox.
+// Free tier, no credit card required. Sign up at emailjs.com, then paste
+// your Service ID, Template ID, and Public Key below (all found on your
+// EmailJS dashboard — see the setup steps for exactly where).
+const EMAILJS_SERVICE_ID = "service_tlpr6bt";
+const EMAILJS_TEMPLATE_ID = "template_rfo36yr";
+const EMAILJS_PUBLIC_KEY = "Hje0XbBMW2tkoN3xC";
 
 /* ---------------------------------------------------------------
    Language context
@@ -738,9 +749,28 @@ function BrandStyles() {
 
 function ContactFab() {
   const { t } = useLang();
-  const [hovering, setHovering] = useState(false);
-  const [clicked, setClicked] = useState(false);
-  const open = hovering || clicked;
+  const [open, setOpen] = useState(false);
+  const [supportsHover, setSupportsHover] = useState(false);
+  const wrapRef = useRef(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setSupportsHover(mq.matches);
+    const handleChange = (e) => setSupportsHover(e.matches);
+    mq.addEventListener("change", handleChange);
+    return () => mq.removeEventListener("change", handleChange);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleOutsideClick = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [open]);
 
   const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.whatsappMessage)}`;
 
@@ -755,8 +785,8 @@ function ContactFab() {
   return (
     <div
       className={`contact-fab-wrap${open ? " open" : ""}`}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
+      ref={wrapRef}
+      onMouseLeave={supportsHover ? () => setOpen(false) : undefined}
     >
       {items.map((item, i) => {
         const Icon = item.icon;
@@ -771,6 +801,7 @@ function ContactFab() {
               className="contact-fab-item"
               style={{ backgroundColor: item.color }}
               aria-label={item.label}
+              onClick={() => setOpen(false)}
             >
               <Icon size={17} />
             </a>
@@ -780,7 +811,8 @@ function ContactFab() {
 
       <button
         className="contact-fab-main"
-        onClick={() => setClicked((v) => !v)}
+        onClick={() => setOpen((v) => !v)}
+        onMouseEnter={supportsHover ? () => setOpen(true) : undefined}
         aria-label={open ? "Close contact options" : "Show contact options"}
         aria-expanded={open}
       >
@@ -846,7 +878,7 @@ function NavBar() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8">
             {links.map((link) => (
               <NavLink key={link.to} to={link.to} end={link.to === "/"} className={linkClass}>
                 {link.label}
@@ -854,7 +886,7 @@ function NavBar() {
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4">
             <LangToggle />
             <Link to="/consultation" className="btn-gold px-5 py-2.5 text-sm font-medium">
               {t.nav.consultation}
@@ -862,7 +894,7 @@ function NavBar() {
           </div>
 
           <button
-            className="lg:hidden text-navy"
+            className="md:hidden text-navy"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -872,7 +904,7 @@ function NavBar() {
         </div>
 
         {open && (
-          <div className="lg:hidden border-t border-ivory-line">
+          <div className="md:hidden border-t border-ivory-line">
             <div className="px-6 py-5 flex flex-col gap-4">
               {links.map((link) => (
                 <NavLink
@@ -1086,7 +1118,7 @@ function Home() {
             className={`${base} ${mounted ? shown : hidden} lg:col-span-2 flex justify-center lg:justify-end`}
             style={{ transitionDelay: "180ms" }}
           >
-            <div className="w-full max-w-xs">
+            <div className="w-full max-w-xs sm:max-w-sm lg:max-w-md">
               <div className="relative">
                 <div
                   className="absolute -z-10 rounded-full"
@@ -1128,7 +1160,7 @@ function Home() {
       <section className="bg-ivory">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 grid lg:grid-cols-5 gap-12 items-center">
           <Reveal className="lg:col-span-2">
-            <div className="relative border border-ivory-line bg-navy aspect-[4/5] max-w-sm overflow-hidden rounded-2xl">
+            <div className="relative w-full border border-ivory-line bg-navy aspect-[4/5] max-w-sm lg:max-w-md overflow-hidden rounded-2xl">
               <img
                 src={aboutPhotoSrc}
                 alt="Hanamariyam Getnet Asmare"
@@ -1232,26 +1264,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      <section className="bg-navy-deep">
-        <Reveal className="max-w-7xl mx-auto px-6 lg:px-10 py-20 text-center">
-          <h2 className="font-display text-ivory text-3xl sm:text-4xl mb-4">{t.homeCta.heading}</h2>
-          <p className="text-ivory-soft max-w-xl mx-auto mb-8">{t.homeCta.text}</p>
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            <Link to="/consultation" className="btn-gold px-7 py-3.5 text-sm font-medium tracking-wide">
-              {t.homeCta.cta}
-            </Link>
-            <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline-ivory px-7 py-3.5 text-sm font-medium tracking-wide"
-            >
-              {t.homeCta.whatsapp}
-            </a>
-          </div>
-        </Reveal>
-      </section>
     </>
   );
 }
@@ -1270,7 +1282,7 @@ function About() {
     <section className="bg-ivory">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 grid lg:grid-cols-5 gap-16">
         <Reveal className="lg:col-span-2">
-          <div className="relative border border-ivory-line bg-navy aspect-[4/5] max-w-sm overflow-hidden rounded-2xl">
+          <div className="relative w-full border border-ivory-line bg-navy aspect-[4/5] max-w-sm lg:max-w-md overflow-hidden rounded-2xl">
             <img
               src={aboutPhotoSrc}
               alt="Hanamariyam Getnet Asmare at 5A Law Firm LLP"
@@ -1329,6 +1341,11 @@ function About() {
               >
                 <p className="text-charcoal font-medium mb-1">{h[lang].title}</p>
                 <p className="text-charcoal-soft text-sm leading-relaxed">{h[lang].text}</p>
+                {h.link && (
+                  <a href={h.link} target="_blank" rel="noopener noreferrer" className="text-link-gold text-sm inline-block mt-2">
+                    {lang === "am" ? "ጥናቱን ይመልከቱ" : "Read the research"}
+                  </a>
+                )}
               </Reveal>
             ))}
           </div>
@@ -1500,17 +1517,38 @@ function Contact() {
   const info = content.contactInfo;
   const [form, setForm] = useState({ name: "", email: "", phone: "", area: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setError(t.contact.errorRequired);
       return;
     }
     setError("");
-    setSubmitted(true);
+    setSending(true);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          form_type: "Contact",
+          from_name: form.name,
+          from_email: form.email,
+          phone: form.phone || "—",
+          area: form.area || "—",
+          message: form.message,
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+      setSubmitted(true);
+    } catch (e) {
+      setError("Something went wrong sending your message. Please try again, or reach out directly by phone or email.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -1610,8 +1648,13 @@ function Contact() {
 
                 {error && <p className="text-sm" style={{ color: "#9A3B3B" }}>{error}</p>}
 
-                <button onClick={handleSubmit} className="btn-gold px-7 py-3 text-sm font-medium w-full sm:w-auto">
-                  {t.contact.submit}
+                <button
+                  onClick={handleSubmit}
+                  disabled={sending}
+                  className="btn-gold px-7 py-3 text-sm font-medium w-full sm:w-auto"
+                  style={sending ? { opacity: 0.6, cursor: "not-allowed" } : undefined}
+                >
+                  {sending ? "Sending…" : t.contact.submit}
                 </button>
               </div>
             )}
@@ -1639,17 +1682,40 @@ function Consultation() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
 
   const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!form.name.trim() || !form.email.trim() || !form.date) {
       setError(t.contact.errorRequired);
       return;
     }
     setError("");
-    setSubmitted(true);
+    setSending(true);
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          form_type: "Consultation Request",
+          from_name: form.name,
+          from_email: form.email,
+          phone: form.phone || "—",
+          area: form.area || "—",
+          date: form.date || "—",
+          time: form.time || "—",
+          message: form.message || "—",
+        },
+        { publicKey: EMAILJS_PUBLIC_KEY }
+      );
+      setSubmitted(true);
+    } catch (e) {
+      setError("Something went wrong sending your request. Please try again, or reach out directly by phone or email.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -1739,8 +1805,13 @@ function Consultation() {
 
               {error && <p className="text-sm" style={{ color: "#9A3B3B" }}>{error}</p>}
 
-              <button onClick={handleSubmit} className="btn-gold px-7 py-3 text-sm font-medium w-full sm:w-auto">
-                {t.consultation.submit}
+              <button
+                onClick={handleSubmit}
+                disabled={sending}
+                className="btn-gold px-7 py-3 text-sm font-medium w-full sm:w-auto"
+                style={sending ? { opacity: 0.6, cursor: "not-allowed" } : undefined}
+              >
+                {sending ? "Sending…" : t.consultation.submit}
               </button>
             </div>
           )}
