@@ -17,6 +17,10 @@ import {
   Gavel,
   Handshake,
   Leaf,
+  HeartHandshake,
+  Lightbulb,
+  Landmark,
+  UserCheck,
   GraduationCap,
   Award,
   Quote,
@@ -61,7 +65,7 @@ const translations = {
     },
     homeAboutTeaser: {
       eyebrow: "About",
-      text: "Hanamariyam Getnet Asmare is an accomplished legal practitioner with extensive experience across judicial adjudication, legal advisory, and academic instruction, now serving clients at 5A Law Firm LLP in Addis Ababa.",
+      text: "Hanamariyam Getnet Asmare is an accomplished legal practitioner with extensive experience across judicial adjudication, legal advisory, and academic instruction, now serving clients across Addis Ababa.",
       link: "Learn more about her background",
     },
     stats: {
@@ -103,7 +107,7 @@ const translations = {
       awardsHeading: "Recognition",
       highlightsHeading: "Case Highlights",
       testimonialsHeading: "Testimonials",
-      portraitCaption: "5A Law Firm LLP — Bole Road, Addis Ababa",
+      portraitCaption: "Addis Ababa, Ethiopia",
     },
     practice: {
       eyebrow: "Practice Areas",
@@ -174,7 +178,7 @@ const translations = {
     },
     homeAboutTeaser: {
       eyebrow: "ስለ እኔ",
-      text: "ሀናማርየም ጌትነት አሰማረ በዳኝነት፣ በሕግ ምክር አገልግሎትና በአካዳሚክ ትምህርት ሰፊ ልምድ ያላት ስኬታማ የሕግ ባለሙያ ስትሆን፣ በአሁኑ ወቅት በአዲስ አበባ በ5A ጠበቆች ደንበኞችን እያገለገለች ትገኛለች።",
+      text: "ሀናማርየም ጌትነት አሰማረ በዳኝነት፣ በሕግ ምክር አገልግሎትና በአካዳሚክ ትምህርት ሰፊ ልምድ ያላት ስኬታማ የሕግ ባለሙያ ስትሆን፣ በአሁኑ ወቅት በአዲስ አበባ ደንበኞችን እያገለገለች ትገኛለች።",
       link: "ስለ ልምዷ የበለጠ ይወቁ",
     },
     stats: {
@@ -216,7 +220,7 @@ const translations = {
       awardsHeading: "እውቅናዎች",
       highlightsHeading: "ጎላ ያሉ የስራ ውጤቶች",
       testimonialsHeading: "የደንበኞች አስተያየት",
-      portraitCaption: "5A ጠበቆች ኃ.የተ.የግ.ማ — ቦሌ መንገድ፣ አዲስ አበባ",
+      portraitCaption: "አዲስ አበባ፣ ኢትዮጵያ",
     },
     practice: {
       eyebrow: "የስራ ዘርፎች",
@@ -274,7 +278,7 @@ const translations = {
    direct quotes).
 --------------------------------------------------------------- */
 
-const ICON_MAP = { Briefcase, ShieldCheck, Gavel, Handshake, Leaf };
+const ICON_MAP = { Briefcase, ShieldCheck, Gavel, Handshake, Leaf, HeartHandshake, Lightbulb, Landmark, UserCheck };
 const RESEARCH_URL = "https://etd.aau.edu.et/items/fe9fab10-ebbe-43e7-87cb-e08513067859";
 const ICON_KEYS = Object.keys(ICON_MAP);
 
@@ -334,16 +338,53 @@ const DEFAULT_PRACTICE_AREAS = [
     },
   },
   {
-    id: "environmental-constitutional",
-    iconKey: "Leaf",
+    id: "ngo-law",
+    iconKey: "HeartHandshake",
     en: {
-      title: "Environmental & Constitutional Law",
+      title: "NGO Law",
       description:
-        "Comparative research and frameworks on constitutional rights to a healthy environment.",
+        "Legal guidance for non-governmental and civil society organizations on registration, governance, and compliance.",
     },
     am: {
-      title: "የአካባቢና የሕገ መንግስት ሕግ",
-      description: "ጤናማ አካባቢ የማግኘት ሕገ መንግስታዊ መብቶች ላይ የንጽጽር ጥናትና ማዕቀፎች።",
+      title: "የመንግስታዊ ያልሆኑ ድርጅቶች ሕግ",
+      description: "ለመንግስታዊ ያልሆኑ ድርጅቶችና የሲቪል ማህበረሰብ ተቋማት በምዝገባ፣ በአስተዳደርና በተገዢነት ላይ የሕግ ምክር።",
+    },
+  },
+  {
+    id: "intellectual-property",
+    iconKey: "Lightbulb",
+    en: {
+      title: "Intellectual Property Law",
+      description:
+        "Protecting trademarks, copyrights, and other intellectual property assets for individuals and businesses.",
+    },
+    am: {
+      title: "የአእምሮአዊ ንብረት ሕግ",
+      description: "ለግለሰቦችና ለንግድ ድርጅቶች የንግድ ምልክቶችን፣ የቅጂ መብቶችንና ሌሎች የአእምሮአዊ ንብረቶችን መጠበቅ።",
+    },
+  },
+  {
+    id: "tax-law",
+    iconKey: "Landmark",
+    en: {
+      title: "Tax Law",
+      description: "Advising individuals and businesses on tax compliance, planning, and disputes with tax authorities.",
+    },
+    am: {
+      title: "የግብር ሕግ",
+      description: "ለግለሰቦችና ለንግድ ድርጅቶች በግብር ተገዢነት፣ ዕቅድ እና ከግብር ባለስልጣናት ጋር በሚነሱ ውዝግቦች ላይ ምክር።",
+    },
+  },
+  {
+    id: "employment-law",
+    iconKey: "UserCheck",
+    en: {
+      title: "Employment Law",
+      description: "Counsel on hiring practices, employment contracts, and workplace policy compliance.",
+    },
+    am: {
+      title: "የቅጥር ሕግ",
+      description: "በቅጥር አሰራር፣ በቅጥር ውሎችና በስራ ቦታ ፖሊሲ ተገዢነት ላይ ምክር።",
     },
   },
 ];
@@ -470,12 +511,12 @@ const DEFAULT_BLOG_POSTS = [
 
 const DEFAULT_HERO_CONTENT = {
   en: {
-    eyebrow: "Attorney & former Judge",
+    eyebrow: "The best legal battle is the one that never happens.",
     subhead:
       "Experienced legal professional and former judge specializing in business law, corporate governance, and commercial dispute resolution.",
   },
   am: {
-    eyebrow: "ጠበቃና የቀድሞ ዳኛ",
+    eyebrow: "ምርጡ የሕግ ውጊያ ጨርሶ የማይካሄደው ነው።",
     subhead:
       "በንግድ ሕግ፣ በድርጅት አስተዳደርና በንግድ ውዝግብ አፈታት ላይ ልዩ ትኩረት ያደረገች ልምድ ያላት ጠበቃና የቀድሞ ዳኛ።",
   },
@@ -484,16 +525,16 @@ const DEFAULT_HERO_CONTENT = {
 const DEFAULT_ABOUT_CONTENT = {
   en: {
     heading: "A career built on the bench and in the boardroom",
-    bio: "Hanamariyam Getnet Asmare is an accomplished legal practitioner with extensive experience across judicial adjudication, legal advisory, and academic instruction. Her career began in the judiciary, serving as an Assistant Judge and subsequently as a Woreda Court Judge within the Amhara National Regional State. She currently serves as a Legal Assistant at 5A Law Firm LLP in Addis Ababa, managing commercial agreements, corporate compliance, and litigation matters.",
+    bio: "Hanamariyam Getnet Asmare is an accomplished legal practitioner with extensive experience across judicial adjudication, legal advisory, and academic instruction. Her career began in the judiciary, serving as an Assistant Judge and subsequently as a Woreda Court Judge within the Amhara National Regional State. She now practices in Addis Ababa, managing commercial agreements, corporate compliance, and litigation matters.",
   },
   am: {
     heading: "በዳኝነት ወንበርና በቢዝነስ ጠረጴዛ ላይ የተገነባ ሙያ",
-    bio: "ሀናማርየም ጌትነት አሰማረ በዳኝነት፣ በሕግ ምክር አገልግሎትና በአካዳሚክ ትምህርት ሰፊ ልምድ ያላት ስኬታማ የሕግ ባለሙያ ናት። የሙያ ጉዞዋን የጀመረችው በዳኝነት ሲሆን፣ በአማራ ብሔራዊ ክልላዊ መንግስት የረዳት ዳኛ ሆና፣ ቀጥሎም የወረዳ ፍርድ ቤት ዳኛ ሆና አገልግላለች። በአሁኑ ወቅት በአዲስ አበባ በሚገኘው 5A ጠበቆች ኃላፊነቱ የተወሰነ የሽርክና ማህበር ውስጥ የሕግ ረዳት ሆና በማገልገል፣ የንግድ ስምምነቶችን፣ የድርጅት ተገዢነትን እና የክርክር ጉዳዮችን ትከታተላለች።",
+    bio: "ሀናማርየም ጌትነት አሰማረ በዳኝነት፣ በሕግ ምክር አገልግሎትና በአካዳሚክ ትምህርት ሰፊ ልምድ ያላት ስኬታማ የሕግ ባለሙያ ናት። የሙያ ጉዞዋን የጀመረችው በዳኝነት ሲሆን፣ በአማራ ብሔራዊ ክልላዊ መንግስት የረዳት ዳኛ ሆና፣ ቀጥሎም የወረዳ ፍርድ ቤት ዳኛ ሆና አገልግላለች። በአሁኑ ወቅት በአዲስ አበባ በመስራት፣ የንግድ ስምምነቶችን፣ የድርጅት ተገዢነትን እና የክርክር ጉዳዮችን ትከታተላለች።",
   },
 };
 
 const DEFAULT_CONTACT_INFO = {
-  addressLine1: "5A Law Firm LLP",
+  addressLine1: "Law Office of Hanamariyam Getnet Asmare",
   addressLine2: "Bole Road, Tropical Mall, 9th Floor",
   addressLine3: "Addis Ababa, Ethiopia",
   phone: "+251 924 485 788",
@@ -621,8 +662,8 @@ function BrandStyles() {
       @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
 
       :root{
-        --navy: #10263F;
-        --navy-deep: #081522;
+        --navy: #121212;
+        --navy-deep: #000000;
         --charcoal: #2E2E32;
         --gold: #AD8A54;
         --gold-light: #C7A76D;
@@ -1285,7 +1326,7 @@ function About() {
           <div className="relative w-full border border-ivory-line bg-navy aspect-[4/5] max-w-sm lg:max-w-md overflow-hidden rounded-2xl">
             <img
               src={aboutPhotoSrc}
-              alt="Hanamariyam Getnet Asmare at 5A Law Firm LLP"
+              alt="Hanamariyam Getnet Asmare"
               className="absolute inset-0 w-full h-full object-cover"
               style={{ objectPosition: "center 20%" }}
             />
