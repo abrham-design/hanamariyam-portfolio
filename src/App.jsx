@@ -25,6 +25,7 @@ import {
   Award,
   Phone,
   Mail,
+  MapPin,
   Clock,
   Calendar,
   CheckCircle2,
@@ -51,6 +52,7 @@ const translations = {
       home: "Home",
       about: "About",
       practice: "Practice Areas",
+      services: "Services",
       insights: "Insights",
       contact: "Contact",
       consultation: "Consultation",
@@ -102,6 +104,8 @@ const translations = {
     about: {
       eyebrow: "About",
       eduHeading: "Education & Credentials",
+      experienceHeading: "Professional Experience",
+      licenseHeading: "Federal Courts Advocate / Licensed Lawyer",
       awardsHeading: "Recognition",
       highlightsHeading: "Case Highlights",
       testimonialsHeading: "Testimonials",
@@ -110,6 +114,13 @@ const translations = {
     practice: {
       eyebrow: "Practice Areas",
       heading: "Counsel grounded in commercial law and judicial experience",
+      cta: "Discuss your matter",
+    },
+    services: {
+      eyebrow: "Services",
+      heading: "Legal services for businesses and individuals",
+      businessHeading: "Preventive Legal Services for Businesses",
+      individualHeading: "Preventive Legal Services for Individuals",
       cta: "Discuss your matter",
     },
     insights: {
@@ -164,6 +175,7 @@ const translations = {
       home: "ዋና ገጽ",
       about: "ስለ እኔ",
       practice: "የስራ ዘርፎች",
+      services: "አገልግሎቶች",
       insights: "ጽሁፎች",
       contact: "አግኙን",
       consultation: "ምክክር ይያዙ",
@@ -215,6 +227,8 @@ const translations = {
     about: {
       eyebrow: "ስለ እኔ",
       eduHeading: "ትምህርትና ብቃቶች",
+      experienceHeading: "የስራ ልምድ",
+      licenseHeading: "የፌዴራል ፍርድ ቤቶች ጠበቃ / ፈቃድ ያለው ጠበቃ",
       awardsHeading: "እውቅናዎች",
       highlightsHeading: "ጎላ ያሉ የስራ ውጤቶች",
       testimonialsHeading: "የደንበኞች አስተያየት",
@@ -223,6 +237,13 @@ const translations = {
     practice: {
       eyebrow: "የስራ ዘርፎች",
       heading: "በንግድ ሕግና በዳኝነት ልምድ ላይ የተመሰረተ የሕግ ምክር",
+      cta: "ጉዳይዎን ያወያዩ",
+    },
+    services: {
+      eyebrow: "አገልግሎቶች",
+      heading: "ለንግድ ድርጅቶችና ለግለሰቦች የሕግ አገልግሎቶች",
+      businessHeading: "ለንግድ ድርጅቶች የመከላከል ሕግ አገልግሎቶች",
+      individualHeading: "ለግለሰቦች የመከላከል ሕግ አገልግሎቶች",
       cta: "ጉዳይዎን ያወያዩ",
     },
     insights: {
@@ -387,6 +408,34 @@ const DEFAULT_PRACTICE_AREAS = [
   },
 ];
 
+const DEFAULT_SERVICES = {
+  business: [
+    { id: "svc-b-1", en: "Contract Drafting and Review", am: "የውል ማዘጋጀትና ግምገማ" },
+    { id: "svc-b-2", en: "Business Legal Compliance Assessment", am: "የንግድ ድርጅት ሕጋዊ ተገዢነት ምዘና" },
+    {
+      id: "svc-b-3",
+      en: "Employment Law Advisory & Company Policies and Procedures",
+      am: "የቅጥር ሕግ ምክርና የድርጅት ፖሊሲና ስርዓቶች",
+    },
+    { id: "svc-b-4", en: "Partnership and Joint Venture Agreements", am: "የሽርክናና የጋራ ስራ ስምምነቶች" },
+    { id: "svc-b-5", en: "Debt Prevention and Risk Management", am: "የዕዳ መከላከልና የስጋት አስተዳደር" },
+    { id: "svc-b-6", en: "Commercial Transaction Advisory", am: "የንግድ ግብይት ምክር" },
+    { id: "svc-b-7", en: "Corporate Governance Support", am: "የድርጅት አስተዳደር ድጋፍ" },
+    { id: "svc-b-8", en: "Legal Due Diligence Services", am: "የሕግ ጥንቃቄ ማጣራት አገልግሎት" },
+    { id: "svc-b-9", en: "Ongoing Legal Advisory Retainer Services", am: "ተከታታይ የሕግ ምክር አገልግሎት" },
+  ],
+  individual: [
+    { id: "svc-i-1", en: "Property Transaction Review", am: "የንብረት ግብይት ግምገማ" },
+    { id: "svc-i-2", en: "Family and Estate Planning", am: "የቤተሰብና የውርስ ዕቅድ" },
+    { id: "svc-i-3", en: "Rental and Lease Agreement Review", am: "የኪራይ ስምምነት ግምገማ" },
+    { id: "svc-i-4", en: "Employment Contract Review", am: "የቅጥር ውል ግምገማ" },
+    { id: "svc-i-5", en: "Small Business Legal Guidance", am: "ለአነስተኛ ንግድ ድርጅቶች የሕግ መምሪያ" },
+    { id: "svc-i-6", en: "Consumer Protection Advice", am: "የተጠቃሚ ጥበቃ ምክር" },
+    { id: "svc-i-7", en: "Legal Risk Assessment Before Major Decisions", am: "ከትልቅ ውሳኔዎች በፊት የሕግ ስጋት ምዘና" },
+    { id: "svc-i-8", en: "Documentation and Agreement Preparation", am: "ሰነድና ስምምነት ማዘጋጀት" },
+  ],
+};
+
 const EDUCATION = [
   {
     en: { degree: "Master of Laws (LL.M.) in Business Law", school: "Addis Ababa University" },
@@ -524,12 +573,81 @@ const DEFAULT_ABOUT_CONTENT = {
   en: {
     heading: "A career built on the bench and in the boardroom",
     bio: "Hanamariyam Getnet Asmare is an accomplished legal practitioner with extensive experience across judicial adjudication, legal advisory, and academic instruction. Her career began in the judiciary, serving as an Assistant Judge and subsequently as a Woreda Court Judge within the Amhara National Regional State. She previously served as a Legal Assistant at 5A Law Firm LLP in Addis Ababa, where she managed commercial agreements, corporate compliance, and litigation matters.",
+    license: "Authorized to practice before all Federal Courts in Ethiopia under License No. 7169/18.",
   },
   am: {
     heading: "በዳኝነት ወንበርና በቢዝነስ ጠረጴዛ ላይ የተገነባ ሙያ",
     bio: "ሀናማርየም ጌትነት አሰማረ በዳኝነት፣ በሕግ ምክር አገልግሎትና በአካዳሚክ ትምህርት ሰፊ ልምድ ያላት ስኬታማ የሕግ ባለሙያ ናት። የሙያ ጉዞዋን የጀመረችው በዳኝነት ሲሆን፣ በአማራ ብሔራዊ ክልላዊ መንግስት የረዳት ዳኛ ሆና፣ ቀጥሎም የወረዳ ፍርድ ቤት ዳኛ ሆና አገልግላለች። ቀደም ሲል በአዲስ አበባ በ5A ጠበቆች የሕግ ረዳት ሆና በማገልገል፣ የንግድ ስምምነቶችን፣ የድርጅት ተገዢነትን እና የክርክር ጉዳዮችን ትከታተል ነበር።",
+    license: "በኢትዮጵያ በሁሉም የፌዴራል ፍርድ ቤቶች ለመቆም በፈቃድ ቁጥር 7169/18 ስልጣን የተሰጣት።",
   },
 };
+
+const DEFAULT_EXPERIENCE = [
+  {
+    id: "exp-5a-law-firm",
+    en: {
+      role: "Legal Assistant",
+      org: "5A Law Firm LLP",
+      period: "Feb 2024 – March 2026",
+      description:
+        "Drafted pleadings, appeals, defense statements, and commercial contracts, while conducting contract reviews and providing legal advisory services to clients.",
+    },
+    am: {
+      role: "የሕግ ረዳት",
+      org: "5A ጠበቆች",
+      period: "የካቲት 2024 – መጋቢት 2026",
+      description:
+        "አቤቱታዎችን፣ አቤት አቤቱታዎችን፣ የመከላከያ መግለጫዎችንና የንግድ ውሎችን ማዘጋጀት፣ የውል ግምገማ ማድረግና ለደንበኞች የሕግ ምክር አገልግሎት መስጠት።",
+    },
+  },
+  {
+    id: "exp-aau-ta",
+    en: {
+      role: "Part-Time Teaching Assistant",
+      org: "Addis Ababa University",
+      period: "Nov 2022 – Feb 2023",
+      description:
+        "Conducted tutoring, assessment marking, exam invigilation, and student guidance for the course Ethiopian Customary Laws and Institutions.",
+    },
+    am: {
+      role: "የትርፍ ሰዓት የማስተማር ረዳት",
+      org: "አዲስ አበባ ዩኒቨርሲቲ",
+      period: "ህዳር 2022 – የካቲት 2023",
+      description:
+        "ለኢትዮጵያ ወግ ሕግጋትና ተቋማት ኮርስ ማጠናከሪያ ትምህርት፣ የፈተና ውጤት ምዘና፣ የፈተና ቁጥጥርና የተማሪ መምሪያ አገልግሎት መስጠት።",
+    },
+  },
+  {
+    id: "exp-legambo-judge",
+    en: {
+      role: "Woreda Court Judge",
+      org: "Legambo Woreda Court, Amhara Region",
+      period: "July 2020 – March 2022",
+      description: "Adjudicated regional court proceedings and delivered judicial rulings.",
+    },
+    am: {
+      role: "የወረዳ ፍርድ ቤት ዳኛ",
+      org: "ለገምቦ ወረዳ ፍርድ ቤት፣ አማራ ክልል",
+      period: "ሐምሌ 2020 – መጋቢት 2022",
+      description: "የክልል ፍርድ ቤት ክርክሮችን መዳኘትና የዳኝነት ውሳኔዎችን መስጠት።",
+    },
+  },
+  {
+    id: "exp-lemi-assistant-judge",
+    en: {
+      role: "Assistant Judge",
+      org: "Lemi Woreda Court, Amhara Region",
+      period: "Oct 2019 – July 2020",
+      description: "Handled judicial preparation and case administration following state judicial induction.",
+    },
+    am: {
+      role: "ረዳት ዳኛ",
+      org: "ለሚ ወረዳ ፍርድ ቤት፣ አማራ ክልል",
+      period: "ጥቅምት 2019 – ሐምሌ 2020",
+      description: "ከክልል የዳኝነት ስልጠና በኋላ የዳኝነት ማዘጋጀትና የጉዳይ አስተዳደር ስራ ማከናወን።",
+    },
+  },
+];
 
 const DEFAULT_CONTACT_INFO = {
   addressLine1: "Law Office of Hanamariyam Getnet Asmare",
@@ -549,7 +667,9 @@ const DEFAULT_IMAGES = {
 const DEFAULT_CONTENT = {
   hero: DEFAULT_HERO_CONTENT,
   about: DEFAULT_ABOUT_CONTENT,
+  experience: DEFAULT_EXPERIENCE,
   practiceAreas: DEFAULT_PRACTICE_AREAS,
+  services: DEFAULT_SERVICES,
   blogPosts: DEFAULT_BLOG_POSTS,
   contactInfo: DEFAULT_CONTACT_INFO,
   images: DEFAULT_IMAGES,
@@ -621,7 +741,9 @@ function ContentProvider({ children }) {
         setContent({
           hero: remote.hero || DEFAULT_HERO_CONTENT,
           about: remote.about || DEFAULT_ABOUT_CONTENT,
+          experience: remote.experience || DEFAULT_EXPERIENCE,
           practiceAreas: remote.practiceAreas || DEFAULT_PRACTICE_AREAS,
+          services: remote.services || DEFAULT_SERVICES,
           blogPosts: remote.blogPosts || DEFAULT_BLOG_POSTS,
           contactInfo: remote.contactInfo || DEFAULT_CONTACT_INFO,
           images: remote.images || DEFAULT_IMAGES,
@@ -898,6 +1020,7 @@ function NavBar() {
     { to: "/", label: t.nav.home },
     { to: "/about", label: t.nav.about },
     { to: "/practice-areas", label: t.nav.practice },
+    { to: "/services", label: t.nav.services },
     { to: "/insights", label: t.nav.insights },
     { to: "/contact", label: t.nav.contact },
   ];
@@ -989,6 +1112,7 @@ function Footer() {
     { to: "/", label: t.nav.home },
     { to: "/about", label: t.nav.about },
     { to: "/practice-areas", label: t.nav.practice },
+    { to: "/services", label: t.nav.services },
     { to: "/insights", label: t.nav.insights },
     { to: "/contact", label: t.nav.contact },
   ];
@@ -1319,6 +1443,7 @@ function About() {
   const { t, lang } = useLang();
   const { content } = useContent();
   const about = content.about[lang];
+  const experience = content.experience || DEFAULT_EXPERIENCE;
   const aboutPhotoSrc = content.images?.aboutUrl || headshotImg;
 
   return (
@@ -1359,7 +1484,34 @@ function About() {
               {about.heading}
             </h2>
             <p className="text-charcoal-soft leading-relaxed max-w-2xl">{about.bio}</p>
+            {about.license && (
+              <div className="mt-6 max-w-2xl border-l-2 border-gold pl-4">
+                <p className="text-charcoal font-medium text-sm">{t.about.licenseHeading}</p>
+                <p className="text-charcoal-soft text-sm mt-1 leading-relaxed">{about.license}</p>
+              </div>
+            )}
           </Reveal>
+
+          <h3 className="font-display text-navy text-xl mt-12 mb-6 flex items-center gap-2">
+            <Briefcase className="w-5 h-5 text-gold" strokeWidth={1.75} />
+            {t.about.experienceHeading}
+          </h3>
+          <div className="space-y-6 max-w-2xl">
+            {experience.map((exp, i) => (
+              <Reveal key={exp.id} delay={i * 90} className="credential-node">
+                <p className="text-charcoal font-medium">
+                  {exp[lang].role}
+                  {exp[lang].org ? ` | ${exp[lang].org}` : ""}
+                </p>
+                {exp[lang].period && (
+                  <p className="text-xs text-charcoal-soft mt-0.5">{exp[lang].period}</p>
+                )}
+                {exp[lang].description && (
+                  <p className="text-charcoal-soft text-sm mt-1.5 leading-relaxed">{exp[lang].description}</p>
+                )}
+              </Reveal>
+            ))}
+          </div>
 
           <h3 className="font-display text-navy text-xl mt-12 mb-6 flex items-center gap-2">
             <GraduationCap className="w-5 h-5 text-gold" strokeWidth={1.75} />
@@ -1419,6 +1571,56 @@ function PracticeAreas() {
         <div className="mt-12">
           <Link to="/consultation" className="btn-gold px-7 py-3.5 text-sm font-medium tracking-wide">
             {t.practice.cta}
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------------------------------------------------------
+   Services
+--------------------------------------------------------------- */
+
+function ServiceGroup({ heading, items, lang, delayStart = 0 }) {
+  return (
+    <div>
+      <h3 className="font-display text-navy text-2xl mb-6">{heading}</h3>
+      <ul className="space-y-3">
+        {items.map((item, i) => (
+          <Reveal key={item.id} delay={delayStart + i * 60}>
+            <li className="flex items-start gap-3 bg-white p-4 rounded-xl" style={{ border: "1px solid var(--ivory-line)" }}>
+              <CheckCircle2 className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" strokeWidth={1.75} />
+              <span className="text-charcoal-soft leading-relaxed">{item[lang]}</span>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Services() {
+  const { t, lang } = useLang();
+  const { content } = useContent();
+  const services = content.services || DEFAULT_SERVICES;
+
+  return (
+    <section className="bg-ivory">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
+        <Reveal className="max-w-2xl mb-14">
+          <p className="font-display italic text-gold text-lg mb-4">{t.services.eyebrow}</p>
+          <h2 className="font-display text-navy text-3xl sm:text-4xl leading-tight">{t.services.heading}</h2>
+        </Reveal>
+
+        <div className="grid lg:grid-cols-2 gap-14">
+          <ServiceGroup heading={t.services.businessHeading} items={services.business} lang={lang} />
+          <ServiceGroup heading={t.services.individualHeading} items={services.individual} lang={lang} delayStart={40} />
+        </div>
+
+        <div className="mt-12">
+          <Link to="/consultation" className="btn-gold px-7 py-3.5 text-sm font-medium tracking-wide">
+            {t.services.cta}
           </Link>
         </div>
       </div>
@@ -1566,6 +1768,18 @@ function Contact() {
           <h2 className="font-display text-ivory text-3xl sm:text-4xl leading-tight mb-8">{t.contact.heading}</h2>
 
           <ul className="space-y-6">
+            {(info.addressLine1 || info.addressLine2 || info.addressLine3) && (
+              <li className="flex gap-4">
+                <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                <span className="text-ivory-soft">
+                  {info.addressLine1}
+                  {info.addressLine1 && <br />}
+                  {info.addressLine2}
+                  {info.addressLine2 && <br />}
+                  {info.addressLine3}
+                </span>
+              </li>
+            )}
             <li className="flex gap-4">
               <Phone className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" strokeWidth={1.5} />
               <span className="text-ivory-soft">{info.phone}</span>
@@ -1953,13 +2167,141 @@ function AboutEditor() {
             <label className="field-label">Heading</label>
             <input className="field-input mb-4" value={draft[langKey].heading} onChange={setField(langKey, "heading")} />
             <label className="field-label">Biography</label>
-            <textarea className="field-input" rows={8} value={draft[langKey].bio} onChange={setField(langKey, "bio")} />
+            <textarea className="field-input mb-4" rows={8} value={draft[langKey].bio} onChange={setField(langKey, "bio")} />
+            <label className="field-label">License / Federal Courts Advocate line</label>
+            <textarea
+              className="field-input"
+              rows={2}
+              value={draft[langKey].license || ""}
+              onChange={setField(langKey, "license")}
+            />
           </div>
         ))}
       </div>
       <div className="mt-6 flex items-center">
         <button onClick={handleSave} className="btn-gold px-6 py-2.5 text-sm font-medium">
           Save about section
+        </button>
+        <SavedNote show={saved} />
+      </div>
+    </div>
+  );
+}
+
+function ExperienceEditor() {
+  const { content, saveSection } = useContent();
+  const [draft, setDraft] = useState(content.experience || DEFAULT_EXPERIENCE);
+  const [saved, setSaved] = useState(false);
+
+  const updateLang = (id, langKey, field) => (e) =>
+    setDraft((list) =>
+      list.map((item) =>
+        item.id === id ? { ...item, [langKey]: { ...item[langKey], [field]: e.target.value } } : item
+      )
+    );
+
+  const removeItem = (id) => setDraft((list) => list.filter((item) => item.id !== id));
+
+  const move = (id, dir) =>
+    setDraft((list) => {
+      const i = list.findIndex((item) => item.id === id);
+      const j = i + dir;
+      if (i < 0 || j < 0 || j >= list.length) return list;
+      const copy = [...list];
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+      return copy;
+    });
+
+  const addItem = () =>
+    setDraft((list) => [
+      ...list,
+      {
+        id: `exp-${Date.now()}`,
+        en: { role: "New role", org: "", period: "", description: "" },
+        am: { role: "አዲስ ስራ", org: "", period: "", description: "" },
+      },
+    ]);
+
+  const handleSave = async () => {
+    await saveSection("experience", draft);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  };
+
+  return (
+    <div>
+      <h2 className="font-display text-navy text-2xl mb-1">Professional experience</h2>
+      <p className="text-charcoal-soft text-sm mb-6">
+        Add, remove, reorder, or edit the roles listed under Professional Experience on the About page.
+      </p>
+
+      <div className="space-y-8">
+        {draft.map((item, idx) => (
+          <div key={item.id} className="border border-ivory-line p-5">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => move(item.id, -1)}
+                  disabled={idx === 0}
+                  className="text-sm text-charcoal-soft hover:text-gold disabled:opacity-30"
+                >
+                  ↑
+                </button>
+                <button
+                  onClick={() => move(item.id, 1)}
+                  disabled={idx === draft.length - 1}
+                  className="text-sm text-charcoal-soft hover:text-gold disabled:opacity-30"
+                >
+                  ↓
+                </button>
+              </div>
+              <button onClick={() => removeItem(item.id)} className="text-sm text-charcoal-soft hover:text-gold">
+                Remove
+              </button>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {["en", "am"].map((langKey) => (
+                <div key={langKey}>
+                  <p className="text-xs font-medium text-gold mb-2">{langKey === "en" ? "English" : "Amharic"}</p>
+                  <label className="field-label">Role / Title</label>
+                  <input
+                    className="field-input mb-3"
+                    value={item[langKey].role}
+                    onChange={updateLang(item.id, langKey, "role")}
+                  />
+                  <label className="field-label">Organization</label>
+                  <input
+                    className="field-input mb-3"
+                    value={item[langKey].org}
+                    onChange={updateLang(item.id, langKey, "org")}
+                  />
+                  <label className="field-label">Period (e.g. Feb 2024 – March 2026)</label>
+                  <input
+                    className="field-input mb-3"
+                    value={item[langKey].period}
+                    onChange={updateLang(item.id, langKey, "period")}
+                  />
+                  <label className="field-label">Description</label>
+                  <textarea
+                    className="field-input"
+                    rows={3}
+                    value={item[langKey].description}
+                    onChange={updateLang(item.id, langKey, "description")}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button onClick={addItem} className="text-link-gold text-sm mt-6">
+        + Add a role
+      </button>
+
+      <div className="mt-8 flex items-center">
+        <button onClick={handleSave} className="btn-gold px-6 py-2.5 text-sm font-medium">
+          Save experience
         </button>
         <SavedNote show={saved} />
       </div>
@@ -2056,6 +2398,95 @@ function PracticeAreasEditor() {
       <div className="mt-8 flex items-center">
         <button onClick={handleSave} className="btn-gold px-6 py-2.5 text-sm font-medium">
           Save practice areas
+        </button>
+        <SavedNote show={saved} />
+      </div>
+    </div>
+  );
+}
+
+function ServiceListEditor({ heading, hint, items, setItems, idPrefix, defaultLabel }) {
+  const updateItem = (id, langKey) => (e) =>
+    setItems((list) => list.map((item) => (item.id === id ? { ...item, [langKey]: e.target.value } : item)));
+
+  const removeItem = (id) => setItems((list) => list.filter((item) => item.id !== id));
+
+  const addItem = () =>
+    setItems((list) => [...list, { id: `${idPrefix}-${Date.now()}`, en: defaultLabel.en, am: defaultLabel.am }]);
+
+  return (
+    <div>
+      <h3 className="font-display text-navy text-lg mb-1">{heading}</h3>
+      {hint && <p className="text-charcoal-soft text-sm mb-4">{hint}</p>}
+      <div className="space-y-3">
+        {items.map((item) => (
+          <div key={item.id} className="grid sm:grid-cols-2 gap-3 items-start border border-ivory-line p-3">
+            <div>
+              <label className="field-label">English</label>
+              <input className="field-input" value={item.en} onChange={updateItem(item.id, "en")} />
+            </div>
+            <div className="flex gap-2 items-start">
+              <div className="flex-1">
+                <label className="field-label">Amharic</label>
+                <input className="field-input" value={item.am} onChange={updateItem(item.id, "am")} />
+              </div>
+              <button
+                onClick={() => removeItem(item.id)}
+                className="text-sm text-charcoal-soft hover:text-gold mt-6"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button onClick={addItem} className="text-link-gold text-sm mt-3">
+        + Add item
+      </button>
+    </div>
+  );
+}
+
+function ServicesEditor() {
+  const { content, saveSection } = useContent();
+  const services = content.services || DEFAULT_SERVICES;
+  const [business, setBusiness] = useState(services.business);
+  const [individual, setIndividual] = useState(services.individual);
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = async () => {
+    await saveSection("services", { business, individual });
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  };
+
+  return (
+    <div>
+      <h2 className="font-display text-navy text-2xl mb-1">Services</h2>
+      <p className="text-charcoal-soft text-sm mb-6">
+        Edit the two service lists shown on the Services page — for businesses and for individuals.
+      </p>
+
+      <div className="space-y-10">
+        <ServiceListEditor
+          heading="Preventive Legal Services for Businesses"
+          items={business}
+          setItems={setBusiness}
+          idPrefix="svc-b"
+          defaultLabel={{ en: "New service", am: "አዲስ አገልግሎት" }}
+        />
+        <ServiceListEditor
+          heading="Preventive Legal Services for Individuals"
+          items={individual}
+          setItems={setIndividual}
+          idPrefix="svc-i"
+          defaultLabel={{ en: "New service", am: "አዲስ አገልግሎት" }}
+        />
+      </div>
+
+      <div className="mt-8 flex items-center">
+        <button onClick={handleSave} className="btn-gold px-6 py-2.5 text-sm font-medium">
+          Save services
         </button>
         <SavedNote show={saved} />
       </div>
@@ -2355,7 +2786,9 @@ function AdminDashboard() {
   const sections = [
     { key: "hero", label: "Hero" },
     { key: "about", label: "About" },
+    { key: "experience", label: "Experience" },
     { key: "practice", label: "Practice Areas" },
+    { key: "services", label: "Services" },
     { key: "blog", label: "Blog Posts" },
     { key: "contact", label: "Contact Info" },
     { key: "images", label: "Images" },
@@ -2395,7 +2828,9 @@ function AdminDashboard() {
         <div className="sm:col-span-3">
           {section === "hero" && <HeroEditor />}
           {section === "about" && <AboutEditor />}
+          {section === "experience" && <ExperienceEditor />}
           {section === "practice" && <PracticeAreasEditor />}
+          {section === "services" && <ServicesEditor />}
           {section === "blog" && <BlogPostsEditor />}
           {section === "contact" && <ContactInfoEditor />}
           {section === "images" && <ImagesEditor />}
@@ -2443,6 +2878,7 @@ export default function LegalPortfolioSite() {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/practice-areas" element={<PracticeAreas />} />
+                    <Route path="/services" element={<Services />} />
                     <Route path="/insights" element={<Insights />} />
                     <Route path="/insights/:slug" element={<InsightDetail />} />
                     <Route path="/contact" element={<Contact />} />
