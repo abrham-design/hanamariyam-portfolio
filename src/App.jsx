@@ -616,6 +616,14 @@ function ContentProvider({ children }) {
     const unsubscribe = onSnapshot(
       ref,
       (snap) => {
+        // Firestore's local cache can hand back a stale document instantly,
+        // before the real server round-trip completes — which caused old
+        // content to flash briefly on load. Skip that first cached
+        // snapshot and wait for the confirmed server version instead;
+        // our in-code defaults are already correct in the meantime.
+        if (snap.metadata.fromCache && !ready) {
+          return;
+        }
         const remote = snap.exists() ? snap.data() : {};
         setContent({
           hero: remote.hero || DEFAULT_HERO_CONTENT,
