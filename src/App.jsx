@@ -1118,8 +1118,8 @@ function Home() {
   return (
     <>
       <section className="bg-navy">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 grid lg:grid-cols-5 gap-14 items-center">
-          <div className="lg:col-span-3">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 grid md:grid-cols-5 gap-14 items-center">
+          <div className="md:col-span-3">
             <p className={`${base} ${mounted ? shown : hidden} font-display italic text-gold text-lg mb-5`}>
               {hero.eyebrow}
             </p>
@@ -1159,10 +1159,10 @@ function Home() {
           </div>
 
           <div
-            className={`${base} ${mounted ? shown : hidden} lg:col-span-2 flex justify-center lg:justify-end`}
+            className={`${base} ${mounted ? shown : hidden} md:col-span-2 flex justify-center md:justify-end`}
             style={{ transitionDelay: "180ms" }}
           >
-            <div className="w-full max-w-xs sm:max-w-sm lg:max-w-md">
+            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
               <div className="relative">
                 <div className="frame-plaque relative border border-ivory-20 aspect-[3/4] overflow-hidden">
                   <img
