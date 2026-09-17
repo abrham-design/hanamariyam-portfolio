@@ -559,9 +559,10 @@ const WHATSAPP_NUMBER = "251924485788";
 
 // TODO: replace these two placeholder URLs with her real profile links.
 const FACEBOOK_URL = "https://facebook.com/";
-const LINKEDIN_URL = "http://www.linkedin.com/in/%20hanamariyam-getnet-b477a6424";
-const GOOGLE_BUSINESS_URL = "https://share.google/KuqMoh2BBKGcUzYVW";
-const TELEGRAM_URL = "https://t.me/hanamariyamgetnet";
+const LINKEDIN_URL = "https://www.linkedin.com/in/hanamariyam-getnet-b477a6424";
+// TODO: replace with her real Google Business Profile share link and Telegram username.
+const GOOGLE_BUSINESS_URL = "https://g.page/PASTE_YOUR_BUSINESS_ID";
+const TELEGRAM_URL = "https://t.me/PASTE_YOUR_USERNAME";
 
 // Cloudinary — free image hosting, no credit card required.
 // Sign up at cloudinary.com, then paste your Cloud Name (dashboard home
@@ -616,14 +617,6 @@ function ContentProvider({ children }) {
     const unsubscribe = onSnapshot(
       ref,
       (snap) => {
-        // Firestore's local cache can hand back a stale document instantly,
-        // before the real server round-trip completes — which caused old
-        // content to flash briefly on load. Skip that first cached
-        // snapshot and wait for the confirmed server version instead;
-        // our in-code defaults are already correct in the meantime.
-        if (snap.metadata.fromCache && !ready) {
-          return;
-        }
         const remote = snap.exists() ? snap.data() : {};
         setContent({
           hero: remote.hero || DEFAULT_HERO_CONTENT,
@@ -905,6 +898,7 @@ function NavBar() {
     { to: "/", label: t.nav.home },
     { to: "/about", label: t.nav.about },
     { to: "/practice-areas", label: t.nav.practice },
+    { to: "/insights", label: t.nav.insights },
     { to: "/contact", label: t.nav.contact },
   ];
 
@@ -995,6 +989,7 @@ function Footer() {
     { to: "/", label: t.nav.home },
     { to: "/about", label: t.nav.about },
     { to: "/practice-areas", label: t.nav.practice },
+    { to: "/insights", label: t.nav.insights },
     { to: "/contact", label: t.nav.contact },
   ];
 
@@ -1028,7 +1023,7 @@ function Footer() {
           © 2026 Hanamariyam Getnet Asmare. {t.footer.rights}
         </p>
         <p className="text-ivory-faint text-xs mt-2" style={{ opacity: 0.6 }}>
-          Website designed &amp; built by Abrham Mamo.
+          Website designed &amp; built by Hanamariyam Getnet Asmare.
         </p>
       </div>
     </footer>
@@ -1126,8 +1121,8 @@ function Home() {
   return (
     <>
       <section className="bg-navy">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 grid md:grid-cols-5 gap-14 items-center">
-          <div className="md:col-span-3">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 grid lg:grid-cols-5 gap-14 items-center">
+          <div className="lg:col-span-3">
             <p className={`${base} ${mounted ? shown : hidden} font-display italic text-gold text-lg mb-5`}>
               {hero.eyebrow}
             </p>
@@ -1167,10 +1162,10 @@ function Home() {
           </div>
 
           <div
-            className={`${base} ${mounted ? shown : hidden} md:col-span-2 flex justify-center md:justify-end`}
+            className={`${base} ${mounted ? shown : hidden} lg:col-span-2 flex justify-center lg:justify-end`}
             style={{ transitionDelay: "180ms" }}
           >
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-md">
+            <div className="w-full max-w-xs sm:max-w-sm lg:max-w-md">
               <div className="relative">
                 <div className="frame-plaque relative border border-ivory-20 aspect-[3/4] overflow-hidden">
                   <img
@@ -1260,6 +1255,37 @@ function Home() {
           </div>
           <Link to="/practice-areas" className="text-link-gold text-sm inline-block mt-10">
             {t.homePracticeTeaser.link}
+          </Link>
+        </div>
+      </section>
+
+      <section className="bg-ivory">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20">
+          <Reveal>
+            <p className="font-display italic text-gold text-lg mb-4">{t.homeInsightsTeaser.eyebrow}</p>
+            <h2 className="font-display text-navy text-3xl sm:text-4xl leading-tight max-w-2xl mb-10">
+              {t.homeInsightsTeaser.heading}
+            </h2>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 gap-8">
+            {content.blogPosts.slice(0, 2).map((post, i) => {
+              const copy = post[lang];
+              return (
+                <Reveal key={post.slug} delay={i * 100}>
+                  <Link
+                    to={`/insights/${post.slug}`}
+                    className="lp-link hover-lift block border border-ivory-line p-6 hover:border-gold rounded-2xl"
+                  >
+                    <p className="text-xs text-charcoal-soft mb-2">{post.date}</p>
+                    <h3 className="font-display text-navy text-xl mb-2">{copy.title}</h3>
+                    <p className="text-charcoal-soft text-sm leading-relaxed">{copy.excerpt}</p>
+                  </Link>
+                </Reveal>
+              );
+            })}
+          </div>
+          <Link to="/insights" className="text-link-gold text-sm inline-block mt-10">
+            {t.homeInsightsTeaser.link}
           </Link>
         </div>
       </section>
@@ -2417,10 +2443,8 @@ export default function LegalPortfolioSite() {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/practice-areas" element={<PracticeAreas />} />
-                    {/* Insights disabled for now — re-add these two routes and the nav link to bring it back:
                     <Route path="/insights" element={<Insights />} />
                     <Route path="/insights/:slug" element={<InsightDetail />} />
-                    */}
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/consultation" element={<Consultation />} />
                   </Routes>

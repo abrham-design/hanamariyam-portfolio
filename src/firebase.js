@@ -1,8 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,7 +20,14 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Services App.jsx imports: `import { db, auth, storage } from "./firebase"`
-export const db = getFirestore(app);
+// Services App.jsx imports: `import { db, auth } from "./firebase"`
+//
+// db uses a persistent local cache (stored in the browser's IndexedDB) so
+// that on reload, the site shows the real last-saved content immediately
+// from that local copy instead of briefly flashing old/default content
+// while waiting on a fresh network response. persistentMultipleTabManager
+// keeps this working correctly if the site is open in more than one tab.
+export const db = initializeFirestore(app, {
+  localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
+});
 export const auth = getAuth(app);
-export const storage = getStorage(app);
