@@ -31,7 +31,7 @@ import {
   MessageCircle,
   ArrowLeft,
 } from "lucide-react";
-import { FaFacebookF, FaWhatsapp, FaLinkedinIn, FaEnvelope, FaPhone } from "react-icons/fa";
+import { FaFacebookF, FaWhatsapp, FaLinkedinIn, FaEnvelope, FaPhone, FaGoogle, FaTelegramPlane } from "react-icons/fa";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { db, auth } from "./firebase";
@@ -59,7 +59,7 @@ const translations = {
       credentials: "LL.B., LL.M.",
       cta: "Request a Consultation",
       secondaryCta: "View practice areas",
-      portraitCaption: "Hanamariyam Getnet Asmare — Attorney & former Judge",
+      portraitCaption: "Hanamariyam Getnet Asmare — Attorney & Legal Consultant",
     },
     homeAboutTeaser: {
       eyebrow: "About",
@@ -70,7 +70,7 @@ const translations = {
       items: [
         { number: "2+", label: "Years on the Judicial Bench" },
         { number: "5", label: "Practice Areas" },
-        { number: "3", label: "Degrees & Certifications" },
+        { number: "2", label: "Degrees" },
         { number: "2", label: "Professional Recognitions" },
       ],
     },
@@ -172,7 +172,7 @@ const translations = {
       credentials: "LL.B., LL.M.",
       cta: "ምክክር ይያዙ",
       secondaryCta: "የስራ ዘርፎችን ይመልከቱ",
-      portraitCaption: "ሀናማርየም ጌትነት አሰማረ — ጠበቃና የቀድሞ ዳኛ",
+      portraitCaption: "ሀናማርየም ጌትነት አሰማረ — ጠበቃና የሕግ አማካሪ",
     },
     homeAboutTeaser: {
       eyebrow: "ስለ እኔ",
@@ -183,7 +183,7 @@ const translations = {
       items: [
         { number: "2+", label: "ዓመታት በዳኝነት ወንበር" },
         { number: "5", label: "የስራ ዘርፎች" },
-        { number: "3", label: "ዲግሪዎችና ብቃቶች" },
+        { number: "2", label: "ዲግሪዎች" },
         { number: "2", label: "ሙያዊ እውቅናዎች" },
       ],
     },
@@ -511,23 +511,23 @@ const DEFAULT_HERO_CONTENT = {
   en: {
     eyebrow: "The best legal battle is the one that never happens.",
     subhead:
-      "Experienced legal professional and former judge specializing in business law, corporate governance, and commercial dispute resolution.",
+      "Experienced attorney and legal consultant specializing in business law, corporate governance, and commercial dispute resolution.",
   },
   am: {
     eyebrow: "ምርጡ የሕግ ውጊያ ጨርሶ የማይካሄደው ነው።",
     subhead:
-      "በንግድ ሕግ፣ በድርጅት አስተዳደርና በንግድ ውዝግብ አፈታት ላይ ልዩ ትኩረት ያደረገች ልምድ ያላት ጠበቃና የቀድሞ ዳኛ።",
+      "በንግድ ሕግ፣ በድርጅት አስተዳደርና በንግድ ውዝግብ አፈታት ላይ ልዩ ትኩረት ያደረገች ልምድ ያላት ጠበቃና የሕግ አማካሪ።",
   },
 };
 
 const DEFAULT_ABOUT_CONTENT = {
   en: {
     heading: "A career built on the bench and in the boardroom",
-    bio: "Hanamariyam Getnet Asmare is an accomplished legal practitioner with extensive experience across judicial adjudication, legal advisory, and academic instruction. Her career began in the judiciary, serving as an Assistant Judge and subsequently as a Woreda Court Judge within the Amhara National Regional State. She now practices in Addis Ababa, managing commercial agreements, corporate compliance, and litigation matters.",
+    bio: "Hanamariyam Getnet Asmare is an accomplished legal practitioner with extensive experience across judicial adjudication, legal advisory, and academic instruction. Her career began in the judiciary, serving as an Assistant Judge and subsequently as a Woreda Court Judge within the Amhara National Regional State. She previously served as a Legal Assistant at 5A Law Firm LLP in Addis Ababa, where she managed commercial agreements, corporate compliance, and litigation matters.",
   },
   am: {
     heading: "በዳኝነት ወንበርና በቢዝነስ ጠረጴዛ ላይ የተገነባ ሙያ",
-    bio: "ሀናማርየም ጌትነት አሰማረ በዳኝነት፣ በሕግ ምክር አገልግሎትና በአካዳሚክ ትምህርት ሰፊ ልምድ ያላት ስኬታማ የሕግ ባለሙያ ናት። የሙያ ጉዞዋን የጀመረችው በዳኝነት ሲሆን፣ በአማራ ብሔራዊ ክልላዊ መንግስት የረዳት ዳኛ ሆና፣ ቀጥሎም የወረዳ ፍርድ ቤት ዳኛ ሆና አገልግላለች። በአሁኑ ወቅት በአዲስ አበባ በመስራት፣ የንግድ ስምምነቶችን፣ የድርጅት ተገዢነትን እና የክርክር ጉዳዮችን ትከታተላለች።",
+    bio: "ሀናማርየም ጌትነት አሰማረ በዳኝነት፣ በሕግ ምክር አገልግሎትና በአካዳሚክ ትምህርት ሰፊ ልምድ ያላት ስኬታማ የሕግ ባለሙያ ናት። የሙያ ጉዞዋን የጀመረችው በዳኝነት ሲሆን፣ በአማራ ብሔራዊ ክልላዊ መንግስት የረዳት ዳኛ ሆና፣ ቀጥሎም የወረዳ ፍርድ ቤት ዳኛ ሆና አገልግላለች። ቀደም ሲል በአዲስ አበባ በ5A ጠበቆች የሕግ ረዳት ሆና በማገልገል፣ የንግድ ስምምነቶችን፣ የድርጅት ተገዢነትን እና የክርክር ጉዳዮችን ትከታተል ነበር።",
   },
 };
 
@@ -559,7 +559,9 @@ const WHATSAPP_NUMBER = "251924485788";
 
 // TODO: replace these two placeholder URLs with her real profile links.
 const FACEBOOK_URL = "https://facebook.com/";
-const LINKEDIN_URL = "https://www.linkedin.com/in/hanamariyam-getnet-b477a6424";
+const LINKEDIN_URL = "http://www.linkedin.com/in/%20hanamariyam-getnet-b477a6424";
+const GOOGLE_BUSINESS_URL = "https://share.google/KuqMoh2BBKGcUzYVW";
+const TELEGRAM_URL = "https://t.me/hanamariyamgetnet";
 
 // Cloudinary — free image hosting, no credit card required.
 // Sign up at cloudinary.com, then paste your Cloud Name (dashboard home
@@ -816,7 +818,9 @@ function ContactFab() {
   const items = [
     { label: "Facebook", href: FACEBOOK_URL, icon: FaFacebookF, color: "#1877F2", external: true },
     { label: "WhatsApp", href: waUrl, icon: FaWhatsapp, color: "#25D366", external: true },
+    { label: "Telegram", href: TELEGRAM_URL, icon: FaTelegramPlane, color: "#26A5E4", external: true },
     { label: "LinkedIn", href: LINKEDIN_URL, icon: FaLinkedinIn, color: "#0A66C2", external: true },
+    { label: "Google Business", href: GOOGLE_BUSINESS_URL, icon: FaGoogle, color: "#FFFFFF", iconColor: "#4285F4", external: true },
     { label: "Email", href: "mailto:hanamariyamgetnet@gmail.com", icon: FaEnvelope, color: "var(--gold)" },
     { label: "Call", href: "tel:+251924485788", icon: FaPhone, color: "var(--navy)" },
   ];
@@ -838,7 +842,7 @@ function ContactFab() {
               target={item.external ? "_blank" : undefined}
               rel={item.external ? "noopener noreferrer" : undefined}
               className="contact-fab-item"
-              style={{ backgroundColor: item.color }}
+              style={{ backgroundColor: item.color, color: item.iconColor || "#ffffff", border: item.iconColor ? "1px solid var(--ivory-line)" : "none" }}
               aria-label={item.label}
               onClick={() => setOpen(false)}
             >
@@ -893,7 +897,6 @@ function NavBar() {
     { to: "/", label: t.nav.home },
     { to: "/about", label: t.nav.about },
     { to: "/practice-areas", label: t.nav.practice },
-    { to: "/insights", label: t.nav.insights },
     { to: "/contact", label: t.nav.contact },
   ];
 
@@ -984,7 +987,6 @@ function Footer() {
     { to: "/", label: t.nav.home },
     { to: "/about", label: t.nav.about },
     { to: "/practice-areas", label: t.nav.practice },
-    { to: "/insights", label: t.nav.insights },
     { to: "/contact", label: t.nav.contact },
   ];
 
@@ -1256,37 +1258,6 @@ function Home() {
 
       <section className="bg-ivory">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20">
-          <Reveal>
-            <p className="font-display italic text-gold text-lg mb-4">{t.homeInsightsTeaser.eyebrow}</p>
-            <h2 className="font-display text-navy text-3xl sm:text-4xl leading-tight max-w-2xl mb-10">
-              {t.homeInsightsTeaser.heading}
-            </h2>
-          </Reveal>
-          <div className="grid sm:grid-cols-2 gap-8">
-            {content.blogPosts.slice(0, 2).map((post, i) => {
-              const copy = post[lang];
-              return (
-                <Reveal key={post.slug} delay={i * 100}>
-                  <Link
-                    to={`/insights/${post.slug}`}
-                    className="lp-link hover-lift block border border-ivory-line p-6 hover:border-gold rounded-2xl"
-                  >
-                    <p className="text-xs text-charcoal-soft mb-2">{post.date}</p>
-                    <h3 className="font-display text-navy text-xl mb-2">{copy.title}</h3>
-                    <p className="text-charcoal-soft text-sm leading-relaxed">{copy.excerpt}</p>
-                  </Link>
-                </Reveal>
-              );
-            })}
-          </div>
-          <Link to="/insights" className="text-link-gold text-sm inline-block mt-10">
-            {t.homeInsightsTeaser.link}
-          </Link>
-        </div>
-      </section>
-
-      <section className="bg-ivory">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20">
           <Reveal className="max-w-2xl mb-14">
             <p className="font-display italic text-gold text-lg mb-4">{t.process.eyebrow}</p>
             <h2 className="font-display text-navy text-3xl sm:text-4xl leading-tight">{t.process.heading}</h2>
@@ -1365,25 +1336,6 @@ function About() {
               <Reveal key={e.en.degree} delay={i * 90} className="credential-node">
                 <p className="text-charcoal font-medium">{e[lang].degree}</p>
                 <p className="text-charcoal-soft text-sm mt-0.5">{e[lang].school}</p>
-              </Reveal>
-            ))}
-          </div>
-
-          <h3 className="font-display text-navy text-xl mt-12 mb-6">{t.about.highlightsHeading}</h3>
-          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl">
-            {HIGHLIGHTS.map((h, i) => (
-              <Reveal
-                key={h.en.title}
-                delay={i * 100}
-                className="hover-lift border-l-2 border-gold pl-5 py-1"
-              >
-                <p className="text-charcoal font-medium mb-1">{h[lang].title}</p>
-                <p className="text-charcoal-soft text-sm leading-relaxed">{h[lang].text}</p>
-                {h.link && (
-                  <a href={h.link} target="_blank" rel="noopener noreferrer" className="text-link-gold text-sm inline-block mt-2">
-                    {lang === "am" ? "ጥናቱን ይመልከቱ" : "Read the research"}
-                  </a>
-                )}
               </Reveal>
             ))}
           </div>
@@ -2457,8 +2409,10 @@ export default function LegalPortfolioSite() {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/practice-areas" element={<PracticeAreas />} />
+                    {/* Insights disabled for now — re-add these two routes and the nav link to bring it back:
                     <Route path="/insights" element={<Insights />} />
                     <Route path="/insights/:slug" element={<InsightDetail />} />
+                    */}
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/consultation" element={<Consultation />} />
                   </Routes>
