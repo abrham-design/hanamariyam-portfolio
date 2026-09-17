@@ -32,7 +32,7 @@ import {
   MessageCircle,
   ArrowLeft,
 } from "lucide-react";
-import { FaFacebookF, FaWhatsapp, FaLinkedinIn, FaEnvelope, FaPhone, FaGoogle, FaTelegramPlane } from "react-icons/fa";
+import { FaWhatsapp, FaLinkedinIn, FaEnvelope, FaPhone, FaGoogle, FaTelegramPlane } from "react-icons/fa";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { db, auth } from "./firebase";
@@ -677,8 +677,7 @@ const DEFAULT_CONTENT = {
 
 const WHATSAPP_NUMBER = "251924485788";
 
-// TODO: replace these two placeholder URLs with her real profile links.
-const FACEBOOK_URL = "https://facebook.com/";
+// TODO: replace this placeholder URL with her real profile link.
 const LINKEDIN_URL = "https://www.linkedin.com/in/hanamariyam-getnet-b477a6424";
 // TODO: replace with her real Google Business Profile share link and Telegram username.
 const GOOGLE_BUSINESS_URL = "https://g.page/PASTE_YOUR_BUSINESS_ID";
@@ -939,7 +938,6 @@ function ContactFab() {
   const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.whatsappMessage)}`;
 
   const items = [
-    { label: "Facebook", href: FACEBOOK_URL, icon: FaFacebookF, color: "#1877F2", external: true },
     { label: "WhatsApp", href: waUrl, icon: FaWhatsapp, color: "#25D366", external: true },
     { label: "Telegram", href: TELEGRAM_URL, icon: FaTelegramPlane, color: "#26A5E4", external: true },
     { label: "LinkedIn", href: LINKEDIN_URL, icon: FaLinkedinIn, color: "#0A66C2", external: true },
