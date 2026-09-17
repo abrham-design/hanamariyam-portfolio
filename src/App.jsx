@@ -23,10 +23,8 @@ import {
   UserCheck,
   GraduationCap,
   Award,
-  Quote,
   Phone,
   Mail,
-  MapPin,
   Clock,
   Calendar,
   CheckCircle2,
@@ -1019,6 +1017,9 @@ function Footer() {
         <p className="text-ivory-faint text-xs mt-4">
           © 2026 Hanamariyam Getnet Asmare. {t.footer.rights}
         </p>
+        <p className="text-ivory-faint text-xs mt-2" style={{ opacity: 0.6 }}>
+          Website designed &amp; built by Abrham Mamo.
+        </p>
       </div>
     </footer>
   );
@@ -1161,10 +1162,6 @@ function Home() {
           >
             <div className="w-full max-w-xs sm:max-w-sm lg:max-w-md">
               <div className="relative">
-                <div
-                  className="absolute -z-10 rounded-full"
-                  style={{ inset: "-1.25rem -1.25rem auto auto", top: "-1.25rem", right: "-1.25rem", width: "70%", height: "70%", backgroundColor: "var(--gold)", opacity: 0.18 }}
-                />
                 <div className="frame-plaque relative border border-ivory-20 aspect-[3/4] overflow-hidden">
                   <img
                     src={headshotSrc}
@@ -1390,23 +1387,6 @@ function About() {
               </Reveal>
             ))}
           </div>
-
-          <h3 className="font-display text-navy text-xl mt-12 mb-6">{t.about.testimonialsHeading}</h3>
-          <div className="space-y-8 max-w-2xl quote-panel pt-8">
-            {TESTIMONIALS.map((tItem, i) => (
-              <Reveal key={tItem.name} delay={i * 100}>
-                <figure>
-                  <Quote className="w-6 h-6 text-gold opacity-70 mb-3" strokeWidth={1.5} />
-                  <blockquote className="font-display italic text-navy text-lg leading-relaxed">
-                    {tItem.quote}
-                  </blockquote>
-                  <figcaption className="text-charcoal-soft text-sm mt-3">
-                    — {tItem.name}, {tItem.role}
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -1600,16 +1580,6 @@ function Contact() {
           <h2 className="font-display text-ivory text-3xl sm:text-4xl leading-tight mb-8">{t.contact.heading}</h2>
 
           <ul className="space-y-6">
-            <li className="flex gap-4">
-              <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" strokeWidth={1.5} />
-              <span className="text-ivory-soft leading-relaxed">
-                {info.addressLine1}
-                <br />
-                {info.addressLine2}
-                <br />
-                {info.addressLine3}
-              </span>
-            </li>
             <li className="flex gap-4">
               <Phone className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" strokeWidth={1.5} />
               <span className="text-ivory-soft">{info.phone}</span>
