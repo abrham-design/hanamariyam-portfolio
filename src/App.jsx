@@ -894,8 +894,8 @@ function BrandStyles() {
       .contact-fab-item:hover { transform: scale(1.08); }
       .fab-label { position: absolute; right: 3.5rem; background: #ffffff; color: var(--charcoal); font-size: 0.72rem; padding: 0.3rem 0.65rem; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.16); opacity: 0; transform: translateX(6px); transition: opacity .15s ease, transform .15s ease; white-space: nowrap; pointer-events: none; }
       .contact-fab-item-wrap:hover .fab-label { opacity: 1; transform: translateX(0); }
-      .contact-fab-main { width: 3.75rem; height: 3.75rem; border-radius: 9999px; background-color: var(--navy); color: var(--gold); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.28); border: none; cursor: pointer; transition: background-color .2s ease, transform .2s ease; }
-      .contact-fab-main:hover { background-color: var(--navy-deep); transform: scale(1.06); }
+      .contact-fab-main { width: 3.75rem; height: 3.75rem; border-radius: 9999px; background: linear-gradient(90deg, #8B6914 0%, #C9973E 20%, #F0D77B 40%, #FFF4C4 50%, #F0D77B 60%, #C9973E 80%, #8B6914 100%); color: var(--navy-deep); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.32); border: none; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+      .contact-fab-main:hover { transform: scale(1.06); box-shadow: 0 10px 26px rgba(0,0,0,0.4); }
       .contact-fab-main svg { transition: transform .3s ease; }
       .contact-fab-wrap.open .contact-fab-main svg { transform: rotate(90deg); }
 
