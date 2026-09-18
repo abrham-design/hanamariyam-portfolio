@@ -1011,8 +1011,8 @@ function LangToggle({ className = "" }) {
 function NavBar() {
   const [open, setOpen] = useState(false);
   const { t } = useLang();
-  const { content } = useContent();
-  const logoSrc = content.images?.logoUrl || logoImg;
+  const { content, ready } = useContent();
+  const logoSrc = ready ? content.images?.logoUrl || logoImg : null;
 
   const links = [
     { to: "/", label: t.nav.home },
@@ -1031,7 +1031,7 @@ function NavBar() {
         <div className="flex items-center justify-between h-[4.5rem] px-5 lg:px-7">
           <Link to="/" className="flex items-center gap-3 lp-link">
             <span className="w-10 h-10 rounded-full bg-navy flex items-center justify-center flex-shrink-0 overflow-hidden">
-              <img src={logoSrc} alt="HMG Legal Solutions logo" className="w-full h-full object-cover" />
+              {logoSrc && <img src={logoSrc} alt="HMG Legal Solutions logo" className="w-full h-full object-cover" />}
             </span>
             <span className="leading-tight hidden sm:inline">
               <span className="block font-display text-base text-navy">
@@ -1104,8 +1104,8 @@ function NavBar() {
 
 function Footer() {
   const { t } = useLang();
-  const { content } = useContent();
-  const logoSrc = content.images?.logoUrl || logoImg;
+  const { content, ready } = useContent();
+  const logoSrc = ready ? content.images?.logoUrl || logoImg : null;
   const links = [
     { to: "/", label: t.nav.home },
     { to: "/about", label: t.nav.about },
@@ -1121,7 +1121,7 @@ function Footer() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <div className="flex items-center gap-3">
             <span className="w-8 h-8 rounded-full bg-navy flex items-center justify-center overflow-hidden">
-              <img src={logoSrc} alt="HMG Legal Solutions logo" className="w-full h-full object-cover" />
+              {logoSrc && <img src={logoSrc} alt="HMG Legal Solutions logo" className="w-full h-full object-cover" />}
             </span>
             <span className="font-display text-ivory text-sm">
               Hanamariyam Getnet Asmare
@@ -1225,11 +1225,11 @@ function Layout({ children }) {
 
 function Home() {
   const { t, lang } = useLang();
-  const { content } = useContent();
+  const { content, ready } = useContent();
   const hero = content.hero[lang];
   const about = content.about[lang];
-  const headshotSrc = content.images?.headshotUrl || headshotImg;
-  const aboutPhotoSrc = content.images?.aboutUrl || headshotImg;
+  const headshotSrc = ready ? content.images?.headshotUrl || headshotImg : null;
+  const aboutPhotoSrc = ready ? content.images?.aboutUrl || headshotImg : null;
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 40);
@@ -1290,11 +1290,13 @@ function Home() {
             <div className="w-full max-w-xs sm:max-w-sm lg:max-w-md">
               <div className="relative">
                 <div className="frame-plaque relative border border-ivory-20 aspect-[3/4] overflow-hidden">
-                  <img
-                    src={headshotSrc}
-                    alt="Hanamariyam Getnet Asmare"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+                  {headshotSrc && (
+                    <img
+                      src={headshotSrc}
+                      alt="Hanamariyam Getnet Asmare"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  )}
                 </div>
                 <a
                   href="tel:+251924485788"
@@ -1326,12 +1328,14 @@ function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 grid lg:grid-cols-5 gap-12 items-center">
           <Reveal className="lg:col-span-2">
             <div className="relative w-full border border-ivory-line bg-navy aspect-[4/5] max-w-sm lg:max-w-md overflow-hidden rounded-2xl">
-              <img
-                src={aboutPhotoSrc}
-                alt="Hanamariyam Getnet Asmare"
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: "center 20%" }}
-              />
+              {aboutPhotoSrc && (
+                <img
+                  src={aboutPhotoSrc}
+                  alt="Hanamariyam Getnet Asmare"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ objectPosition: "center 20%" }}
+                />
+              )}
             </div>
           </Reveal>
           <Reveal delay={120} className="lg:col-span-3">
@@ -1439,22 +1443,24 @@ function Home() {
 
 function About() {
   const { t, lang } = useLang();
-  const { content } = useContent();
+  const { content, ready } = useContent();
   const about = content.about[lang];
   const experience = content.experience || DEFAULT_EXPERIENCE;
-  const aboutPhotoSrc = content.images?.aboutUrl || headshotImg;
+  const aboutPhotoSrc = ready ? content.images?.aboutUrl || headshotImg : null;
 
   return (
     <section className="bg-ivory">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28 grid lg:grid-cols-5 gap-16">
         <Reveal className="lg:col-span-2">
           <div className="relative w-full border border-ivory-line bg-navy aspect-[4/5] max-w-sm lg:max-w-md overflow-hidden rounded-2xl">
-            <img
-              src={aboutPhotoSrc}
-              alt="Hanamariyam Getnet Asmare"
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: "center 20%" }}
-            />
+            {aboutPhotoSrc && (
+              <img
+                src={aboutPhotoSrc}
+                alt="Hanamariyam Getnet Asmare"
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: "center 20%" }}
+              />
+            )}
           </div>
           <p className="text-xs text-charcoal-soft mt-3 max-w-sm">{t.about.portraitCaption}</p>
 
