@@ -1145,7 +1145,7 @@ function Footer() {
           © 2026 Hanamariyam Getnet Asmare. {t.footer.rights}
         </p>
         <p className="text-ivory-faint text-xs mt-2" style={{ opacity: 0.6 }}>
-          Website designed &amp; built by Hanamariyam Getnet Asmare.
+          Website designed &amp; built by Abrham Mamo.
         </p>
       </div>
     </footer>
@@ -1252,7 +1252,7 @@ function Home() {
               className={`${base} ${mounted ? shown : hidden} font-display text-ivory text-4xl sm:text-5xl lg:text-6xl leading-[1.12]`}
               style={{ transitionDelay: "90ms" }}
             >
-              Hanamariyam Getnet Asmare
+              {lang === "am" ? "ሃናማርያም ጌትነት አስማረ" : "Hanamariyam Getnet Asmare"}
             </h1>
             <p
               className={`${base} ${mounted ? shown : hidden} font-display text-gold text-xl sm:text-2xl mt-2`}
