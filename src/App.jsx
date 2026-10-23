@@ -1119,21 +1119,13 @@ function Footer() {
     <footer className="bg-navy-deep border-t border-ivory-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-12">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <div className="flex items-center gap-3">
             <span className="w-8 h-8 rounded-full bg-navy flex items-center justify-center overflow-hidden">
               {logoSrc && <img src={logoSrc} alt="HMG Legal Solutions logo" className="w-full h-full object-cover" />}
             </span>
             <span className="font-display text-ivory text-sm">
               Hanamariyam Getnet Asmare
             </span>
-            <span className="text-ivory-faint text-sm" aria-hidden="true">|</span>
-            <a
-              href="tel:+251924485788"
-              className="flex items-center gap-1.5 text-ivory-soft text-sm hover:text-gold"
-            >
-              <Phone className="w-4 h-4 text-gold" strokeWidth={1.75} />
-              +251 924 485 788
-            </a>
           </div>
           <nav className="flex flex-wrap gap-x-7 gap-y-2">
             {links.map((link) => (
