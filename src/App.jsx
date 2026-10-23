@@ -1153,7 +1153,10 @@ function Footer() {
           © 2026 Hanamariyam Getnet Asmare. {t.footer.rights}
         </p>
         <p className="text-ivory-faint text-xs mt-2" style={{ opacity: 0.6 }}>
-          Website designed &amp; built by Abrham Mamo.
+          Website designed &amp; built by Abrham Mamo ·{" "}
+          <a href="tel:+251979436919" className="hover:text-gold">
+            +251 979 436 919
+          </a>
         </p>
       </div>
     </footer>
